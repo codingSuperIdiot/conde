@@ -6,11 +6,11 @@
       </ul>
       <ul class="content">
         <router-link tag="li" v-for="article in artList" :to="{name: 'article',params:{id: article.id}}">
-          <div class="userInfo">
-            <img :src="article.author.avatar_url" alt="" >
+          <div class="userInfo ">
+            <img :src="article.author.avatar_url" alt="">
             <span>{{article.author.loginname}}</span>
           </div>
-          <div class="">
+          <div class="title_wrapper">
             <h3>{{article.title}}</h3>
             <span>发布于：{{article.last_reply_at | time}}</span>
             <span>浏览量：{{article.visit_count}}</span>
@@ -65,21 +65,21 @@
 </script>
 
 <style >
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
+  .tabList{
+    background-color: #999;
+    padding: 0.1rem;
+  }
+  .tabList li{
+    display: inline-block;
+    width: 1rem;
+    height: 0.6rem;
+    line-height: 0.6rem;
+    color: #afa;
+    font-size: 0.35rem;
+    border-radius: 4px;
+  }
+  .tabList li.active{
+    background-color: #7fd07f;
+    color: #fff;
+  }
 </style>

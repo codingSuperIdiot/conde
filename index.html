@@ -3,6 +3,20 @@
   <head>
     <meta charset="utf-8">
     <title>vue-cnode</title>
+    <script>
+      ;(function (doc, win, undefined) {
+        let docEl = doc.documentElement,
+          resizeEvt = 'orientationchange' in win? 'orientationchange' : 'resize',
+          recalc = function () {
+            let clientWidth = docEl.clientWidth;
+            if (clientWidth === undefined) return;
+            docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+          };
+        if (doc.addEventListener === undefined) return;
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false)
+      })(document, window);
+    </script>
   </head>
   <body>
     <div id="app"></div>

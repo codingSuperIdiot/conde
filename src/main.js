@@ -6,7 +6,11 @@ import router from './router'
 import  axios from  'axios'
 import {filterTime} from './js/index'
 
-Vue.prototype.axios = axios
+//重置样式
+require('./css/reset.css');
+
+//axios写入vue
+Vue.prototype.axios = axios;
 
 Vue.filter('time',function (creatTime) {
   let oldtime = new Date(creatTime);
