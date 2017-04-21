@@ -1,6 +1,6 @@
 @charset "utf-8";
-html,body{color:#000;background:#FFF;font-family: FZLTHK--GBK1-0, 'Microsoft Yahei','宋体',Arial;font-size: 14px;height: 100%}
-html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,p,td,strong{padding:0;margin:0;font-family:FZLTHK--GBK1-0,'Microsoft Yahei','宋体',Arial;font-size: 14px;}
+html,body{color:#000;background:#FFF;}
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,p,td,strong{padding:0;margin:0;box-sizing: border-box}
 table{border-collapse:collapse;border-spacing:0;}
 fieldset,img{border:0;}
 a{text-decoration:none; color:#00c; outline:none;}/*此处待添加默认链接颜色*/
