@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import  axios from  'axios'
+import VueScroller from 'vue-scroller'
 import {filterTime} from './js/index'
 
 //重置样式
@@ -38,6 +39,7 @@ Vue.filter('time',function (creatTime) {
 
 Vue.config.productionTip = false
 
+Vue.use(VueScroller)
 
 /* eslint-disable no-new */
 new Vue({

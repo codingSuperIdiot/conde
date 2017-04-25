@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import artList from '@/components/artList'
-import article from '@/components/active'
+import article from '@/components/article'
 
 Vue.use(Router)
 

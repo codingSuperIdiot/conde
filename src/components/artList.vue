@@ -1,24 +1,24 @@
 <template>
-  <div>
-    <div>
-      <ul class="tabList">
-        <li v-for="(tab,index) in tabList" @click="changeTab(index)" :class="{active : activeIndex == index}">{{tab.name}}</li>
-      </ul>
-      <ul class="content">
-        <router-link tag="li" v-for="article in artList" :key="article.id" :to="{name: 'article',params:{id: article.id}}">
-          <div class="userInfo contLeft">
-            <img :src="article.author.avatar_url" alt="">
-            <span>{{article.author.loginname}}</span>
-          </div>
-          <div class="title_wrapper contRight">
-            <h3>{{article.title}}</h3>
-            <span>发布于：{{article.last_reply_at | time}}</span>
-            <span>浏览量：{{article.visit_count}}</span>
-          </div>
-        </router-link>
-      </ul>
-    </div>
-  </div>
+    <scroller :on-refresh="refresh" :on-infinite="infinite">
+      <div>
+        <ul class="tabList">
+          <li v-for="(tab,index) in tabList" @click="changeTab(index)" :class="{active : activeIndex == index}">{{tab.name}}</li>
+        </ul>
+        <ul class="content">
+          <router-link tag="li" v-for="article in artList" :key="article.id" :to="{name: 'article',params:{id: article.id}}">
+            <div class="userInfo contLeft">
+              <img :src="article.author.avatar_url" alt="">
+              <span>{{article.author.loginname}}</span>
+            </div>
+            <div class="title_wrapper contRight">
+              <h3>{{article.title}}</h3>
+              <span>发布于：{{article.last_reply_at | time}}</span>
+              <span>浏览量：{{article.visit_count}}</span>
+            </div>
+          </router-link>
+        </ul>
+      </div>
+    </scroller>
 </template>
 
 <script>
@@ -44,17 +44,18 @@
     },
 
     methods:{
-      getArtList:function(){
-      	console.log("start")
-        this.axios.get(basePath+"topics",{params : this.req})
-          .then((res)=>{
-      		console.log(res)
-            if(res.data.success)
-              this.artList =res.data.data;
-          })
-          .catch((err)=>{
-            console.log(err);
-          })
+      getArtList: function(){
+      	return new Promise((resolve)=>{
+          this.axios.get(basePath+"topics",{params : this.req})
+            .then((res)=>{
+              if(res.data.success)
+                this.artList =res.data.data;
+            })
+            .catch((err)=>{
+              console.log(err);
+            })
+        })
+
       },
       changeTab:function(index){
       	this.activeIndex = index;
@@ -62,6 +63,12 @@
       	console.log(this.req.tab);
       	this.req.limit = 20;
       	this.getArtList();
+      },
+      refresh: function (done) {
+          this.getArtList()
+            .then(done())
+      },
+      infinite: function () {
       }
     },
     mounted:function () {
