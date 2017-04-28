@@ -1,19 +1,26 @@
 <template>
-  <div>
+  <div class="content">
     <h3>{{article.title}}</h3>
-    <div>发布于{{article.createTime | time}}·作者 {{article.author}}·{{article.visit_count}} 次浏览·来自 {{article.tab}}</div>
+    <div>发布于{{article.createTime | time}}·作者 {{article.author}}·{{article.visit_count}} 次浏览·{{article.reply_count}} 次回复·来自 {{article.tab}}</div>
     <div v-html="article.content"></div>
     <div>
       <ul>
-        <li v-for="reply in replies" :key="reply.create_at">
-          <img :src="reply.author.avatar_url" alt="">
+        <li v-for="(reply, index) in replies" :key="reply.create_at">
+          <div>
+            <img :src="reply.author.avatar_url" alt="">
+          </div>
+          <div>
+            <p>{{reply.author.loginname}} <span><i ></i>{{reply.ups.length}}</span></p>
+            <div v-html="reply.content"></div>
+            {{reply.create_at | time}}
+
+          </div>
         </li>
       </ul>
     </div>
   </div>
 </template>
 <script>
-  import {basePath} from '../js/index'
   export  default{
     data:function () {
       return{
@@ -31,7 +38,7 @@
     },
     mounted:function () {
       const artid = this.$route.params.id;
-      this.axios.get(basePath+"topic/"+artid)
+      this.axios.get("https://cnodejs.org/api/v1/topic/"+artid)
         .then((res)=>{
       	  if(res.data.success === true){
       	  	const D = res.data.data;
@@ -48,3 +55,8 @@
     }
   }
 </script>
+<style>
+  .content{
+    font-size: 0.55rem;
+  }
+</style>

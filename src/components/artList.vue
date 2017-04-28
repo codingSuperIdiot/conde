@@ -11,7 +11,7 @@
               <span>{{article.author.loginname}}</span>
             </div>
             <div class="title_wrapper contRight">
-              <h3>{{article.title}}</h3>
+              <h3><span :class="article.good | getTabClass(article.top)">{{article.tab | getArticleTab(article.good, article.top) }}</span>{{article.title}}</h3>
               <span>发布于：{{article.last_reply_at | time}}</span>
               <span>浏览量：{{article.visit_count}}</span>
             </div>
@@ -22,7 +22,6 @@
 </template>
 
 <script>
-  import {basePath} from '../js/index'
   export default {
     data () {
       return {
@@ -46,7 +45,7 @@
     methods:{
       getArtList: function(){
       	return new Promise((resolve)=>{
-          this.axios.get(basePath+"topics",{params : this.req})
+          this.axios.get("https://cnodejs.org/api/v1/topics",{params : this.req})
             .then((res)=>{
               if(res.data.success)
                 this.artList =res.data.data;
@@ -55,7 +54,6 @@
               console.log(err);
             })
         })
-
       },
       changeTab:function(index){
       	this.activeIndex = index;

@@ -5,7 +5,7 @@ import App from './App'
 import router from './router'
 import  axios from  'axios'
 import VueScroller from 'vue-scroller'
-import {filterTime} from './js/index'
+import * as filters from './js/filters'
 
 //重置样式
 require('./css/reset.css');
@@ -13,29 +13,7 @@ require('./css/reset.css');
 //axios写入vue
 Vue.prototype.axios = axios;
 
-Vue.filter('time',function (creatTime) {
-  let oldtime = new Date(creatTime);
-  let newtime = (new Date() - oldtime)/1000;
-  let month = Math.floor(newtime/3600/24/30);
-  let day = Math.floor(newtime/3600/24);
-  let hours = Math.floor(newtime/3600);
-  let mins = Math.floor(newtime/60);
-  let str = '';
-  if (hours === 0) {
-    if (mins <= 3) {
-      str = '刚刚';
-    } else {
-      str = mins + '分钟前';
-    }
-  } else if (day === 0){
-    str = hours + '小时前';
-  } else if (month === 0){
-    str = day + '天前';
-  } else {
-    str = month + '月前';
-  }
-  return str;
-})
+Object.keys(filters).forEach(k => Vue.filter(k, filters[k]));
 
 Vue.config.productionTip = false
 
