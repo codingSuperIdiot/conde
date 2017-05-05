@@ -13,10 +13,12 @@ require('./css/reset.css');
 //axios写入vue
 Vue.prototype.axios = axios;
 
+//循环过滤器
 Object.keys(filters).forEach(k => Vue.filter(k, filters[k]));
 
 Vue.config.productionTip = false
 
+//上拉下拉刷新
 Vue.use(VueScroller)
 
 /* eslint-disable no-new */

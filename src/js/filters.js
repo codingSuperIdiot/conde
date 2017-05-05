@@ -46,7 +46,7 @@ export function getTab(tab, good, top) {
         str = '招聘';
         break;
       default:
-        str = '暂无';
+        str = '';
         break;
     }
   }

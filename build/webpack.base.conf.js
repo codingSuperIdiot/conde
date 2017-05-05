@@ -7,6 +7,7 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
+
 module.exports = {
   entry: {
     app: './src/main.js'
@@ -20,7 +21,7 @@ module.exports = {
     chunkFilename: '[id].build.js?[chunkhash]'
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
+    extensions: [ '.css','.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src')
@@ -53,7 +54,11 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
+      },
+      {
+        test: /\.scss$/,
+        loaders: ["style", "css", "sass"]
       }
     ]
-  }
+  },
 }
