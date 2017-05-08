@@ -46,16 +46,19 @@
     },
 
     methods:{
-      getArtList: function(){
+      getArtList: function(ms){
       	return new Promise((resolve)=>{
-          this.axios.get("https://cnodejs.org/api/v1/topics",{params : this.req})
-            .then((res)=>{
-              if(res.data.success)
-                this.artList =res.data.data;
-            })
-            .catch((err)=>{
-              console.log(err);
-            })
+           this.axios.get("https://cnodejs.org/api/v1/topics",{params : this.req})
+             .then((res)=>{
+               if(res.data.success)
+                 this.artList =res.data.data;
+                 setTimeout(function () {
+                   resolve();
+                 },ms)
+             })
+             .catch((err)=>{
+               resolve(err);
+             })
         })
       },
       changeTab:function(index){
@@ -66,10 +69,15 @@
       	this.getArtList();
       },
       refresh: function (done) {
-          this.getArtList()
-            .then(done())
+          this.getArtList(1000).then(function () {
+          	done()
+          })
       },
-      infinite: function () {
+      infinite: function (done) {
+      	this.req.limit+=20;
+      	this.getArtList(1000).then(function () {
+          done()
+        })
       }
     },
     mounted:function () {
@@ -103,7 +111,7 @@
   .content li{
     width: 100%;
     font-size: 0;
-    padding: 0.5rem 5%;
+    padding: 0.5rem 0;
     border-bottom: 1px solid #ddd;
   }
   .contLeft{

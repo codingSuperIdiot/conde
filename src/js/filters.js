@@ -46,7 +46,7 @@ export function getTab(tab, good, top) {
         str = '招聘';
         break;
       default:
-        str = '';
+        str = '无';
         break;
     }
   }
@@ -82,4 +82,4 @@ export function getTabClass(tab, good, top){
     }
   }
   return className;
-};
+}
